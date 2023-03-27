@@ -23,10 +23,7 @@ export default{
             recipeName:'',
             Servings: '',
             Style:'',
-            Total_Carbs:'',
-            Total_Fats:'',
-            Total_Protein:'',
-            Total_kcal:'',
+            
             User_ID_Publisher:getUserId()
 
         

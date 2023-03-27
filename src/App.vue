@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
+    <!--Create Routerlinks in the navbar to navigate between the views-->
     <nav id="nav" class="page-navbar" data-spy="affix" data-offset-top="10" v-if="!['Info', 'SignIn', 'SignUp'].includes($route.name)">
         <ul class="nav-navbar container">
             <li class="nav-item"><a href="/" class="nav-link">Home</a></li>

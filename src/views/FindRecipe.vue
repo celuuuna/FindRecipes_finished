@@ -128,7 +128,7 @@ export default {
 
   // Reset recipeId to an empty array before appending to it
   this.recipeId = [];
-
+      //retrieve data for every document found
   querySnapshot.forEach((doc) => {
     console.log(doc.id, " => ", doc.data());
     this.recipeId.push(doc.data().Recipe_ID); // Append to recipeId

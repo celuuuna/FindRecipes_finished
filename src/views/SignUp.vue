@@ -69,7 +69,7 @@
 
 								<div class="form-group m-0">
                   <!--Through the click on the signup button the functions addUser and signUp get executed -->
-									<button id="signinbutton" @click="addUser(), signUp() " class=" btn btn-primary btn-block " >Sign Up</button>
+                  <button id="signinbutton" @click="addUser(), signUp() " class=" btn btn-success " >SignUp</button>
 								</div>
 								<div class="mt-4 text-center">
                   <!--routerlink to redirect to the sign in page if user already has an account-->                  
