@@ -50,10 +50,10 @@
                                 <!-- Dropdown menu for user to select their form of diet -->
                                 <select  class="form-select" aria-label="Default select example" v-model="formData.diet">
                                     <!-- <option selected>Orientation</option> -->
-                                    <option value="1">Unrestricted</option>
-                                    <option value="2">Vegan</option>
-                                    <option value="3">Vegetarian</option>
-                                    <option value="4">Helal</option>
+                                    <option value="Unrestricted">Unrestricted</option>
+                                    <option value="Vegan">Vegan</option>
+                                    <option value="Vegetarian">Vegetarian</option>
+                                    <option value="Helal">Helal</option>
                                   </select>
 
 
