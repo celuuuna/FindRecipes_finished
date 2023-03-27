@@ -29,14 +29,14 @@
         <div class="col-md-10 col-lg-8 m-auto">
             <h3 class="title mb-4">Recipes</h3>
         </div>
-        <a href="#">activate filters</a>
+        <button class="btn btn-success" href="findrecipes" style="font-size: larger; border-style: solid; border-color: rgb(0, 64, 102);  background-color: rgb(0, 64, 102);">Search Recipes</button>
     
      <!-- row with some recipe  -->
      <div class="row mb-5">
     <div class="col-md-6" v-for="(recipe, key) in recipes" :key='key'>
-            <img v-bind:src="`../src/assets/imgs/${recipe.image}`" width="300" height="300" alt="pic">
+            <img v-bind:src="`../src/assets/imgs/${recipe.image}`" width="400" height="300" alt="pic">
                 <div class="card-body">
-                    <h3 class="card-title"><p class="recipename" style="color: black">{{recipe.Recipe_Name}}></p></h3>
+                    <h3 class="card-title"><p class="recipename" >{{recipe.Recipe_Name}}</p></h3>
                     <router-link
                             :to="{path: 'info', name: 'Info', params:{recipe:recipe.Recipe_Name}}">
                             <button class="btn btn-success" role="button">See Recipe</button>

@@ -22,7 +22,7 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/">
+              <router-link to="../findrecipes">
                <a class="nav-link"><img src="../assets/imgs/logo.png" ></a>
               </router-link>
             </li>
