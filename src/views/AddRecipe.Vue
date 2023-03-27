@@ -15,7 +15,7 @@
 </template>
 <script>
 export default{
-    name:AddRecipe
+    name:'AddRecipe',
     data(){
         return{recipe:{
             instructions:'',
@@ -37,7 +37,6 @@ export default{
         }
     }
 
-}
 
 /* async addUser(){
            const db = getFirestore()

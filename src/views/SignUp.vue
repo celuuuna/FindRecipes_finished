@@ -21,6 +21,7 @@
 
 								<div class="form-group">
 									<label for="name">Name</label>
+                  <!--Input field to store user entry for their username-->
 									<input id="name" type="text" class="form-control" name="name" placeholder="Username" v-model="formData.username" required autofocus>
 									<div class="invalid-feedback">
 										What's your name?
@@ -29,6 +30,7 @@
 
 								<div class="form-group">
 									<label for="email">E-Mail Address</label>
+                  <!--Input field to store user entry for their email-->
 									<input id="email" type="email" class="form-control" name="email" placeholder="email" v-model="formData.email" required>
 									<div class="invalid-feedback">
 										Your email is invalid
@@ -38,12 +40,14 @@
 
 								<div class="form-group">
 									<label for="password">Password</label>
+                  <!--Input field to store user entry for their password-->
 									<input id="password" type="password" class="form-control" name="password" placeholder="password" v-model="formData.password" required data-eye>
 									<div class="invalid-feedback">
 										Password is required
 									</div>
 								</div>
                                 <p style="color: black">Choose your Orientation</p>
+                                <!-- Dropdown menu for user to select their form of diet -->
                                 <select  class="form-select" aria-label="Default select example" v-model="formData.diet">
                                     <!-- <option selected>Orientation</option> -->
                                     <option value="1">Unrestricted</option>
@@ -64,12 +68,14 @@
 								</div> --> <br><br>
 
 								<div class="form-group m-0">
+                  <!--Through the click on the signup button the functions addUser and signUp get executed -->
 									<button id="signinbutton" @click="addUser(), signUp() " class=" btn btn-primary btn-block " >Sign Up</button>
 								</div>
 								<div class="mt-4 text-center">
+                  <!--routerlink to redirect to the sign in page if user already has an account-->                  
                   <router-link to="/signin">
                       <a id="text"> Already have an account? &nbsp; </a> <button class="btn btn-success" id="createonebutton" role="button">Sign In</button>
-                   </router-link>
+                  </router-link>
 								</div>
 							
 						</div>
@@ -91,6 +97,7 @@ export default {
   name: 'SignUp',
   data () {
     return {
+      //store user information in formData details
       formData: {
         email: '',
         password: '',
@@ -100,6 +107,8 @@ export default {
     }
   },
   methods: {
+    //method to access firebase authenticator to create a uer with their email and password 
+    //in order to securely store and manage them 
     signUp () {
       console.log('SignUp')
       const auth = getAuth()
@@ -118,7 +127,10 @@ export default {
             })
             
         }, 
-        //addUser soll die USer zur Datenbank hinzufügen um Speichern von Fvoriten zu ermöglichen
+        //addUser is a function to add the Users into the database but without their password
+        //this way their password stays protected and we can still retrieve data about
+        //their diet as well as their username or in future updates of the website even more details
+        //about favorite recipes etc.
        async addUser(){
            const db = getFirestore()
            const docRef = await addDoc(collection(db, "User"), {
