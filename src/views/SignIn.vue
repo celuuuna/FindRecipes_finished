@@ -80,44 +80,52 @@
 </template>
 
 <script>
+// Importing necessary libraries and modules
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import store from '../store';
-import { mapActions, mapState } from 'vuex';
+import store from '../store'; // Vuex store
+import { mapActions, mapState } from 'vuex'; // Vuex helper functions
 
 export default {
+  // Component name
   name: 'SignIn',
+
+  // Component data
   data() {
     return {
-      formData: {
+      formData: { // Form data for email and password input
         email: '',
         password: ''
       }
     }
   },
 
+  // Vuex helper functions
   computed: {
-    ...mapActions(["setUserData"]),
+    ...mapActions(["setUserData"]), // Maps Vuex actions to component methods
   },
+
+  // Component methods
   methods: {
-    async signIn() {
+    async signIn() { // Method to authenticate user
       try {
-        const auth = getAuth();
-        const userCredential = await signInWithEmailAndPassword(
+        const auth = getAuth(); // Firebase Authentication instance
+        const userCredential = await signInWithEmailAndPassword( // Sign in with email and password
           auth,
           this.formData.email,
           this.formData.password
         );
-        console.log(userCredential.user.email);
-        await store.dispatch('getUserData', this.formData.email);
-        await store.commit('setUserInfo', store.state.userData.userInfo);
-        this.$router.replace('/profile');
-      } catch (error) {
-        alert(error.message);
+        console.log(userCredential.user.email); // Log user email
+        await store.dispatch('getUserData', this.formData.email); // Get user data from Vuex store
+        await store.commit('setUserInfo', store.state.userData.userInfo); // Set user info in store
+        this.$router.replace('/profile'); // Redirect user to profile page
+      } catch (error) { // Handle errors
+        alert(error.message); // Show alert with error message
       }
     }
   }
 }
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

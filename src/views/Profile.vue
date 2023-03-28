@@ -119,34 +119,50 @@
 </html>
 
   </template>
-  
   <script>
+  // Import necessary Firebase and Vuex functions
 import { getAuth, signOut } from "firebase/auth";
 import { getFirestore, collection, onSnapshot, query, where} from 'firebase/firestore';
 import { mapState } from 'vuex';
 
 export default {
   name: "Profile",
+
+  // Set initial data for component
   data() {
     return {
-      auth: getAuth(),
-      users: []
+      auth: getAuth(),  // Initialize Firebase auth instance
+      users: []         // Array to store user data retrieved from Firestore
     }
   },
+
+  // Map Vuex state to computed properties
   computed: {
-    ...mapState(['userData'])
+    ...mapState(['userData'])  // Get userData from Vuex store
   },
+
+  // Perform actions when the component is mounted
   mounted() {
-  console.log('This is the User Profile')
-  console.log('imported userData', this.userData.userInfo)
-  const db = getFirestore()
-  const colRef = collection(db, 'User')
-  const queryRef = query(colRef, where("Email", "==", this.userData.userInfo.Email))
-  onSnapshot(queryRef, snapShot => {
-  this.users = snapShot.docs.map(doc => doc.data())
-  this.userIds = snapShot.docs.map(doc => doc.id)
-})
+    console.log('This is the User Profile')
+    console.log('imported userData', this.userData.userInfo)
+
+    // Get Firestore instance and reference to User collection
+    const db = getFirestore()
+    const colRef = collection(db, 'User')
+
+    // Construct query to get user data matching email from Vuex store
+    const queryRef = query(colRef, where("Email", "==", this.userData.userInfo.Email))
+
+    // Subscribe to real-time updates for user data matching query
+    onSnapshot(queryRef, snapShot => {
+      // Update users array with data from Firestore
+      this.users = snapShot.docs.map(doc => doc.data())
+      // Get IDs of documents in snapshot and store in separate array
+      this.userIds = snapShot.docs.map(doc => doc.id)
+    })
   },
+
+  // Define logout method to sign user out of Firebase auth and redirect to signin page
   methods: {
     logout() {
       console.log("logout");
@@ -157,10 +173,11 @@ export default {
         .catch((error) => {
           alert(error.message);
         });
-    }}}
-</script>
+    }
+  }
+}
 
-  
+</script>
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
   @import '../assets/css/profile.css';
