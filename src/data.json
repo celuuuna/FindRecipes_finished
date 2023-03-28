@@ -1,0 +1,19 @@
+[
+{"Username":"User1",
+"Email":"firstUser@email.com",
+"Diet": "Vegan"},
+
+{"Username":"User2",
+"Email":"secondUser@email.com",
+"Diet":"Vegetarian"}
+,
+
+{"Username":"User3",
+"Email":"thirdUser@email.com",
+"Diet":"Unrestricted"}
+,
+{"Username":"User4",
+"Email":"thirdUser@email.com",
+"Diet":"Helal"}
+
+  ]

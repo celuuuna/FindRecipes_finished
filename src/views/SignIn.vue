@@ -80,73 +80,43 @@
 </template>
 
 <script>
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import store from '../store';
+import { mapActions, mapState } from 'vuex';
 
-
-import {getAuth, signInWithEmailAndPassword} from "firebase/auth"
 export default {
   name: 'SignIn',
-  data () {
+  data() {
     return {
-        //the entry data gets stored in the formData object
       formData: {
         email: '',
         password: ''
-      },
-      userData:{
-        userInfo:{}
       }
     }
   },
+
+  computed: {
+    ...mapActions(["setUserData"]),
+  },
   methods: {
-    //the signIn function uses the firestore sign in function 
-    //to check the email and password with the secured data in the authenticator
-    signIn () {
-      console.log('Signin')
-      const auth = getAuth()
-            signInWithEmailAndPassword(
-                auth,
-                this.formData.email,
-                this.formData.password
-            )
-            //if the login was successful the user will be redirected to the recipe page
-            .then(async (userCredential) => {
-                console.log("Successfully sign in!")
-                this.$router.replace('/recipes')
-                alert("Welcome User! Let's cook something delicious !")
-                await this.getUserData(); // Call getUserData() after the user signs in successfully
-            })
-            .catch((error) => {
-                //if user credentials are wrong an error message gets displayed 
-                console.log(error.code)
-                alert(error.message)
-            })
-        },
-        //function retrieve userdata from collection where Email equals to the entry on sign in
-        //the userInfo is used to import in the Profile.vue to display the user data 
-        //according to the current user 
-        async getUserData(){
-    // Get a Firestore instance
-    const db = getFirestore()
-
-    // Create a query for the User collection to retrieve the user with the specified email
-    const q1 = query(collection(db, "User"), where ("Email", "==", this.formData.email))
-
-    // Retrieve the documents matching the query
-    const querySnapshot1 = await getDocs(q1);
-
-    // Loop through each document and log its ID and data, then store the data in an array
-    querySnapshot1.forEach((doc) => {
-        console.log(doc.id, "=>", doc.data());
-        this.userInfo = querySnapshot1.docs.map(doc => doc.data());
-    })
-
-    // Log the user info array
-    console.log(this.userInfo)
-}
-
+    async signIn() {
+      try {
+        const auth = getAuth();
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          this.formData.email,
+          this.formData.password
+        );
+        console.log(userCredential.user.email);
+        await store.dispatch('getUserData', this.formData.email);
+        await store.commit('setUserInfo', store.state.userData.userInfo);
+        this.$router.replace('/profile');
+      } catch (error) {
+        alert(error.message);
+      }
     }
   }
-
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import {initializeApp} from 'firebase/app'
+import store from './store'
 import LoadScript from "vue-plugin-load-script";
 
 import './assets/main.css'
@@ -20,5 +21,5 @@ const app = createApp(App)
 
 app.use(router)
 app.use(LoadScript);
-
+app.use(store)
 app.mount('#app')
